@@ -1,7 +1,7 @@
 {
 
   "manifest_version": 2,
-  "name": "Borderify",
+  "name": "mal-fansubs",
   "version": "1.0",
 
   "description": "Adds fansub section to mal anime pages",
@@ -10,10 +10,14 @@
     "48": "icons/border-48.png"
   },
 
+  "permissions": [
+    "<all_urls>"
+  ],
+
   "content_scripts": [
     {
       "matches": ["*://*.myanimelist.net/anime/*"],
-      "js": ["new_fansub.js"]
+      "js": ["fansub.js"]
     }
   ]
 
