@@ -13,6 +13,12 @@ var id = document.getElementById("myinfo_anime_id").value;
 console.log(id)
 var url = "http://localhost:3300/api/anime/"+id;
 
+function createComment(commentItem, groupElem) {
+    var comment = document.createElement("div");
+    comment.appendChild(document.createTextNode(commentItem.comment));
+    groupElem.appendChild(comment)
+}
+
 function showComments(e) {
     console.log(e.target.id);
     var groupid = e.target.id;
@@ -32,7 +38,7 @@ function showComments(e) {
 function createGroup(groupdata) {
     var group = document.createElement("div");
     group.appendChild(document.createTextNode(groupdata.groupname));
-    group.appendChild(document.createTextNode(groupdata.approve_line));
+    group.appendChild(document.createTextNode(groupdata.approve +" of "+groupdata.total_users+" approve"));
     group.appendChild(document.createTextNode(groupdata.language));
     group.id = groupdata.groupid;
     group.onclick = showComments;
@@ -45,7 +51,6 @@ fetch(url)
         .then(data => {
             console.log(data);
             loader.innerHTML = "";
-            //pagedata = data;
             data.forEach((item)=>createGroup(item));
         })
     });
