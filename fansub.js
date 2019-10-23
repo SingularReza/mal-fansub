@@ -15,12 +15,15 @@ var url = "http://localhost:3300/api/fansubs/"+id;
 
 function createComment(commentItem, groupElem) {
     var comment = document.createElement("div");
-    comment.appendChild(document.createTextNode(commentItem.comment));
+    commentColor = commentItem.color == "+" ? 'grey':'red';
+    comment.style.background = commentColor;
+    comment.style.margin = '5px';
+    var template = '<span style="color">' + commentItem.comment+'</span>';
+    comment.innerHTML = template;
     groupElem.appendChild(comment)
 }
 
 function showComments(e) {
-    console.log("sdbwhjbd");
     console.log(e.target.id);
     var groupid = e.target.id;
     fetch("http://localhost:3300/api/fansubs/" + id+ "/"+groupid)
@@ -31,18 +34,17 @@ function showComments(e) {
                     var group = document.getElementById(groupid);
                     console.log(group);
                     data.forEach((item) => createComment(item, group));
-                    console.log("here too");
                 })
         });
-    console.log("here");
 }
 
 function createGroup(groupdata) {
     var group = document.createElement("div");
-    group.appendChild(document.createTextNode(groupdata.groupname));
-    group.appendChild(document.createTextNode(groupdata.approve +" of "+groupdata.total_users+" approve"));
-    group.appendChild(document.createTextNode(groupdata.language));
+    var template = '<span>' + groupdata.groupname + '</span>&nbsp;&nbsp;&nbsp;<span style="color:grey">' + groupdata.approve + ' of ' + groupdata.total_users + ' approve</span>&nbsp;&nbsp;&nbsp;<span style="color: blue">' + groupdata.language +'</span>';
+    group.innerHTML = template;
     group.id = groupdata.groupid;
+    group.style.margin = '10px 0 10px 0';
+    group.style.cursor = 'pointer';
     group.onclick = showComments;
     document.getElementsByClassName("pb24")[0].appendChild(group);
 }
