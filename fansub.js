@@ -11,7 +11,7 @@ document.getElementsByClassName("pb24")[0].appendChild(loader);
 document.body.style.border = "5px solid red";
 var id = document.getElementById("myinfo_anime_id").value;
 console.log(id)
-var url = "http://localhost:3300/api/anime/"+id;
+var url = "http://localhost:3300/api/fansubs/"+id;
 
 function createComment(commentItem, groupElem) {
     var comment = document.createElement("div");
@@ -20,19 +20,21 @@ function createComment(commentItem, groupElem) {
 }
 
 function showComments(e) {
+    console.log("sdbwhjbd");
     console.log(e.target.id);
     var groupid = e.target.id;
-    fetch("http://localhost:3300/api/comments/" + id + groupid)
+    fetch("http://localhost:3300/api/fansubs/" + id+ "/"+groupid)
         .then(res => {
             res.json()
                 .then(data => {
                     console.log(data);
-                    loader.innerHTML = "";
-                    var group = document.getElementsByClassName(groupid) ;
+                    var group = document.getElementById(groupid);
+                    console.log(group);
                     data.forEach((item) => createComment(item, group));
+                    console.log("here too");
                 })
         });
-
+    console.log("here");
 }
 
 function createGroup(groupdata) {
