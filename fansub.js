@@ -15,7 +15,7 @@ var url = "http://localhost:3300/api/fansubs/"+id;
 
 function createComment(commentItem, groupElem) {
     var comment = document.createElement("div");
-    commentColor = commentItem.color == "+" ? 'grey':'red';
+    commentColor = commentItem.color == "+" ? '#f6f6f6' :'#f7e0e0';
     comment.style.background = commentColor;
     comment.style.margin = '5px';
     var template = '<span style="color">' + commentItem.comment+'</span>';
@@ -24,6 +24,8 @@ function createComment(commentItem, groupElem) {
 }
 
 function showComments(e) {
+    if (e.target !== this)
+        return;
     console.log(e.target.id);
     var groupid = e.target.id;
     fetch("http://localhost:3300/api/fansubs/" + id+ "/"+groupid)
@@ -40,7 +42,7 @@ function showComments(e) {
 
 function createGroup(groupdata) {
     var group = document.createElement("div");
-    var template = '<span>' + groupdata.groupname + '</span>&nbsp;&nbsp;&nbsp;<span style="color:grey">' + groupdata.approve + ' of ' + groupdata.total_users + ' approve</span>&nbsp;&nbsp;&nbsp;<span style="color: blue">' + groupdata.language +'</span>';
+    var template = '<span>' + groupdata.groupname + '</span>&nbsp;&nbsp;&nbsp;<span style="color:grey">' + groupdata.approve + ' of ' + groupdata.total_users + ' approve</span>&nbsp;&nbsp;&nbsp;<span style="color: blue">' + groupdata.language +'</span>&nbsp;&nbsp;&nbsp;<span>'+groupdata.total_comments+' comments</span>';
     group.innerHTML = template;
     group.id = groupdata.groupid;
     group.style.margin = '10px 0 10px 0';
